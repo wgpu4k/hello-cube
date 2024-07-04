@@ -1,0 +1,14 @@
+[versions]
+kotlin = "2.0.0"
+wgpu4k = "0.0.0-SNAPSHOT"
+korge = "5.4.0"
+coroutines = "1.8.0"
+
+[libraries]
+wgpu4k = { module = "io.ygdrasil:wgpu4k-toolkit", version.ref = "wgpu4k" }
+korge-foundation = { module = "com.soywiz.korge:korge-foundation", version.ref = "korge" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+[plugins]
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
