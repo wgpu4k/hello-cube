@@ -3,7 +3,7 @@ import io.ygdrasil.wgpu.CanvasConfiguration
 import io.ygdrasil.wgpu.WGPUContext
 
 
-suspend fun AutoClosableContext.createScene(context: WGPUContext): RotatingCubeScene {
+fun AutoClosableContext.createScene(context: WGPUContext): RotatingCubeScene {
     context.surface.configure(
         CanvasConfiguration(
             context.device
