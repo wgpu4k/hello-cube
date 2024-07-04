@@ -20,13 +20,18 @@ fun main() {
         autoClosableContext {
             val scene = createScene(glfwContext.wgpuContext)
             glfwShowWindow(glfwContext.windowHandler)
+            var lastGameTick = System.currentTimeMillis()
 
             while (!glfwWindowShouldClose(glfwContext.windowHandler)) {
                 glfwPollEvents()
-                autoClosableContext {
-                    with(scene) { render() }
-                    glfwContext.wgpuContext.surface.present()
-                    scene.frame += 1
+                val diff = System.currentTimeMillis() - lastGameTick
+                if (diff > UPDATE_INTERVAL) {
+                    lastGameTick = System.currentTimeMillis()
+                    autoClosableContext {
+                        with(scene) { render() }
+                        glfwContext.wgpuContext.surface.present()
+                        scene.frame += 1
+                    }
                 }
             }
         }
