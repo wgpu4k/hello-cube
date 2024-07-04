@@ -26,7 +26,7 @@ class RotatingCubeScene(private val context: WGPUContext) : AutoCloseable {
     lateinit var uniformBindGroup: BindGroup
     lateinit var verticesBuffer: Buffer
 
-    suspend fun initialize() = with(autoClosableContext) {
+    fun initialize() = with(autoClosableContext) {
 
         // Create dummy texture, as we manipulate immutable data and we need to assign a texture early
         val dummyTexture by lazy {
