@@ -1,1 +1,1 @@
-# hello-triangle
+# wgpu4k Hello Cube Sample
