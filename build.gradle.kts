@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -32,9 +33,16 @@ kotlin {
 		binaries.executable()
 		browser()
 	}
+
 	jvm {
 		// On to make "JavaExec" work, else we got SourceSet with name 'main' not found, see https://youtrack.jetbrains.com/issue/KT-42683
 		withJava()
+	}
+
+	@OptIn(ExperimentalWasmDsl::class)
+	wasmJs {
+		binaries.executable()
+		browser()
 	}
 
 	sourceSets {
