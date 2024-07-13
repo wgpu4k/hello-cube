@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.0.0"
-wgpu4k = "preview-1"
+wgpu4k = "0.0.0-SNAPSHOT"
 korge = "5.4.0"
 coroutines = "1.8.0"
 

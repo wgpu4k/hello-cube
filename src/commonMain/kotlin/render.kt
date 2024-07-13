@@ -6,7 +6,8 @@ import io.ygdrasil.wgpu.WGPUContext
 fun AutoClosableContext.createScene(context: WGPUContext): RotatingCubeScene {
     context.surface.configure(
         CanvasConfiguration(
-            context.device
+            context.device,
+            context.surface.textureFormat
         )
     )
 
