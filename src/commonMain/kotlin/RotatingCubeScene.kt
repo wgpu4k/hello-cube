@@ -3,7 +3,31 @@ import Cube.cubeUVOffset
 import Cube.cubeVertexArray
 import Cube.cubeVertexCount
 import Cube.cubeVertexSize
-import io.ygdrasil.wgpu.*
+import io.ygdrasil.wgpu.AutoClosableContext
+import io.ygdrasil.wgpu.BindGroup
+import io.ygdrasil.wgpu.BindGroupDescriptor
+import io.ygdrasil.wgpu.Buffer
+import io.ygdrasil.wgpu.BufferDescriptor
+import io.ygdrasil.wgpu.BufferUsage
+import io.ygdrasil.wgpu.Color
+import io.ygdrasil.wgpu.CompareFunction
+import io.ygdrasil.wgpu.CullMode
+import io.ygdrasil.wgpu.Device
+import io.ygdrasil.wgpu.LoadOp
+import io.ygdrasil.wgpu.PrimitiveTopology
+import io.ygdrasil.wgpu.RenderPassDescriptor
+import io.ygdrasil.wgpu.RenderPipeline
+import io.ygdrasil.wgpu.RenderPipelineDescriptor
+import io.ygdrasil.wgpu.RenderingContext
+import io.ygdrasil.wgpu.ShaderModuleDescriptor
+import io.ygdrasil.wgpu.Size3D
+import io.ygdrasil.wgpu.StoreOp
+import io.ygdrasil.wgpu.TextureDescriptor
+import io.ygdrasil.wgpu.TextureFormat
+import io.ygdrasil.wgpu.TextureUsage
+import io.ygdrasil.wgpu.VertexFormat
+import io.ygdrasil.wgpu.WGPUContext
+import io.ygdrasil.wgpu.beginRenderPass
 import korlibs.math.geom.Angle
 import korlibs.math.geom.Matrix4
 import kotlin.math.PI
@@ -145,7 +169,7 @@ class RotatingCubeScene(private val context: WGPUContext) : AutoCloseable {
                     storeOp = StoreOp.store,
                 )
             ),
-            depthStencilAttachment = RenderPassDescriptor.RenderPassDepthStencilAttachment(
+            depthStencilAttachment = RenderPassDescriptor.DepthStencilAttachment(
                 view = depthTexture.createView(),
                 depthClearValue = 1.0f,
                 depthLoadOp = LoadOp.clear,
@@ -186,13 +210,13 @@ class RotatingCubeScene(private val context: WGPUContext) : AutoCloseable {
         val encoder = device.createCommandEncoder()
             .bind()
 
-        val renderPassEncoder = encoder.beginRenderPass(renderPassDescriptor)
-            .bind()
-        renderPassEncoder.setPipeline(renderPipeline)
-        renderPassEncoder.setBindGroup(0, uniformBindGroup)
-        renderPassEncoder.setVertexBuffer(0, verticesBuffer)
-        renderPassEncoder.draw(cubeVertexCount)
-        renderPassEncoder.end()
+        encoder.beginRenderPass(renderPassDescriptor) {
+            setPipeline(renderPipeline)
+            setBindGroup(0, uniformBindGroup)
+            setVertexBuffer(0, verticesBuffer)
+            draw(cubeVertexCount)
+            end()
+        }
 
         val commandBuffer = encoder.finish()
             .bind()
