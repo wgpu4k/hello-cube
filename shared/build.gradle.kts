@@ -34,7 +34,9 @@ kotlin {
 
 		val commonMain by getting {
 			dependencies {
-				implementation(projects.shared)
+				api(libs.wgpu4k)
+				api(libs.korge.foundation)
+				api(libs.coroutines)
 			}
 		}
 

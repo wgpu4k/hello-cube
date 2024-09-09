@@ -22,5 +22,6 @@ dependencyResolutionManagement {
 }
 
 
+include("shared")
 include("hello-cube")
-include("android")
+//include("android")

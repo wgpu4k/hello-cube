@@ -4,8 +4,6 @@ plugins {
     alias(libs.plugins.androidApplication) apply false
 }
 
-
-
 group = "io.ygdrasil"
 version = "0.0.0-SNAPSHOT"
 
