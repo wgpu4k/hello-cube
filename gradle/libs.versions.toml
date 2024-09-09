@@ -3,6 +3,7 @@ kotlin = "2.0.0"
 wgpu4k = "0.0.0-SNAPSHOT"
 korge = "5.4.0"
 coroutines = "1.8.0"
+agp = "8.5.1"
 
 [libraries]
 wgpu4k = { module = "io.ygdrasil:wgpu4k-toolkit", version.ref = "wgpu4k" }
@@ -11,4 +12,5 @@ coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }
 
