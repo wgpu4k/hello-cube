@@ -5,14 +5,11 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import io.ygdrasil.wgpu.examples.Application
-import io.ygdrasil.wgpu.examples.createApplication
 import korlibs.io.android.withAndroidContext
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
-    private var application: Application? = null
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
@@ -32,9 +29,8 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
         MainScope().launch {
             if (application != null) return@launch
             try {
-                withAndroidContext(context) {
+                with(context) {
                     val androidContext = androidContextRenderer(surfaceHolder, width, height)
-                    application = createApplication(androidContext.wgpuContext)
                     println("Created application $application")
                     setWillNotDraw(false)
                 }
@@ -59,7 +55,6 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
 
         MainScope().launch {
             try {
-                application?.renderFrame()
                 invalidate()
             } catch (e: Exception) {
                 e.printStackTrace()
