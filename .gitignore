@@ -26,3 +26,5 @@ replay_pid*
 /build/
 /.kotlin/
 /.gradle/
+/hello-cube/build/
+*dylib
