@@ -5,9 +5,9 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import korlibs.io.android.withAndroidContext
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import io.ygdrasil.wgpu.androidContextRenderer
 
 class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
 
@@ -27,11 +27,9 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
 
     override fun surfaceCreated(surfaceHolder: SurfaceHolder) {
         MainScope().launch {
-            if (application != null) return@launch
             try {
-                with(context) {
+                with(context!!) {
                     val androidContext = androidContextRenderer(surfaceHolder, width, height)
-                    println("Created application $application")
                     setWillNotDraw(false)
                 }
             } catch (e: Exception) {
@@ -43,11 +41,7 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         println("surfaceDestroyed")
-        application?.apply {
-            currentScene.close()
-            wgpuContext.close()
-        }
-        application = null
+
     }
 
     override fun draw(canvas: Canvas) {

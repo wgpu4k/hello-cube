@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
@@ -6,31 +7,38 @@ plugins {
 	alias(libs.plugins.androidLibrary)
 }
 
-java {
-	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(17))
-	}
-}
-
-
 kotlin {
 	js { browser() }
 
-	jvm()
+	jvm {
+		@OptIn(ExperimentalKotlinGradlePluginApi::class)
+		compilerOptions {
+			jvmTarget = JvmTarget.JVM_22
+		}
+	}
 
 	@OptIn(ExperimentalWasmDsl::class)
 	wasmJs { browser() }
 
-	androidTarget()
+	androidTarget {
+		@OptIn(ExperimentalKotlinGradlePluginApi::class)
+		compilerOptions {
+			jvmTarget = JvmTarget.JVM_22
+		}
+	}
 
 	sourceSets {
 
-		val commonMain by getting {
+		 commonMain {
 			dependencies {
 				api(libs.wgpu4k)
 				api(libs.korge.foundation)
 				api(libs.coroutines)
 			}
+		}
+
+		androidMain {
+			//implementation("io.ygdrasil:wgpu4k-toolkit:")
 		}
 
 	}
@@ -49,4 +57,11 @@ android {
 		minSdk = 28
 	}
 
+}
+
+
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(22))
+	}
 }

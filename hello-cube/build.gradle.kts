@@ -94,3 +94,9 @@ tasks.register<JavaExec>("runApp") {
 	}
 	classpath = sourceSets["main"].runtimeClasspath
 }
+
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(22))
+	}
+}
