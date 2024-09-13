@@ -234,7 +234,7 @@ class RotatingCubeScene(private val context: WGPUContext) : AutoCloseable {
 
 private fun getTransformationMatrix(angle: Double, projectionMatrix: Matrix4): FloatArray {
     var viewMatrix = Matrix4.IDENTITY
-    viewMatrix = viewMatrix.translated(0, 0, -4)
+    viewMatrix = viewMatrix.translated(0, 0, -5)
 
     viewMatrix = viewMatrix.rotated(
         Angle.fromRadians(Angle.fromRadians(angle).sine),

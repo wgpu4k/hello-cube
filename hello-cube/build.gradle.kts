@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
 	alias(libs.plugins.kotlinMultiplatform)
+	//id("org.jetbrains.gradle.apple.applePlugin") version "222.4595-0.23.2"
 }
 
 java {
@@ -10,7 +11,6 @@ java {
 		languageVersion.set(JavaLanguageVersion.of(22))
 	}
 }
-
 
 kotlin {
 	js {
@@ -27,6 +27,21 @@ kotlin {
 	wasmJs {
 		binaries.executable()
 		browser()
+	}
+
+	listOf(
+		iosX64(),
+		iosArm64(),
+		iosSimulatorArm64()
+	).forEach {
+		it.binaries {
+			framework {
+				baseName = "shared"
+			}
+			executable {
+				entryPoint = "main"
+			}
+		}
 	}
 
 	sourceSets {
@@ -100,3 +115,41 @@ java {
 		languageVersion.set(JavaLanguageVersion.of(22))
 	}
 }
+
+
+if (Platform.os == Os.MacOs) {
+	project.tasks.register<Exec>("runIosSim") {
+		val device = "iPhone 15"
+		workingDir = project.buildDir
+		val linkExecutableTaskName = when (Platform.architecture) {
+			Architecture.X86_64 -> "linkReleaseExecutableIosX64"
+			Architecture.AARCH64 -> "linkReleaseExecutableIosSimulatorArm64"
+		}
+		val binTask = project.tasks.named(linkExecutableTaskName)
+		dependsOn(binTask)
+		commandLine = listOf(
+			"xcrun",
+			"simctl",
+			"spawn",
+			"--standalone",
+			device
+		)
+
+		println("file ${binTask.get().outputs.files.single()}")
+		argumentProviders.add {
+			val out = fileTree(binTask.get().outputs.files.files.single()) { include("*.kexe") }
+			println("out $out")
+			listOf(out.single { it.name.endsWith(".kexe") }.absolutePath)
+		}
+	}
+}
+/*
+apple {
+	iosApp {
+		productName = "HelloCube"
+		sceneDelegateClass = "SceneDelegate"
+		dependencies {
+			implementation(project(":"))
+		}
+	}
+}*/
