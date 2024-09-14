@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
@@ -29,18 +30,19 @@ kotlin {
         browser()
     }
 
+    val xcframeworkName = "WgpuApp"
+    val xcf = XCFramework(xcframeworkName)
+
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries {
-            framework {
-                baseName = "shared"
-            }
-            executable {
-                entryPoint = "main"
-            }
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "WgpuApp"
+            isStatic = true
+            xcf.add(this)
+            binaryOption("bundleId", "io.ygdrasil.wgpu.$xcframeworkName")
         }
     }
 

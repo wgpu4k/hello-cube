@@ -13,23 +13,8 @@ import platform.UIKit.UIApplicationMain
 import platform.UIKit.UIResponder
 import platform.UIKit.UIResponderMeta
 import platform.UIKit.UIScreen
-import platform.UIKit.UIViewController
 import platform.UIKit.UIWindow
-import platform.darwin.dispatch_async
-import platform.darwin.dispatch_get_main_queue
 import kotlin.experimental.ExperimentalObjCName
-
-fun main(args: Array<String>) {
-    println("Hello cube")
-    memScoped {
-        val argc = args.size + 1
-        val argv = (arrayOf("konan") + args).toCStringArray(memScope)
-        autoreleasepool {
-            println("Hello cube ${args.joinToString()}}")
-            UIApplicationMain(argc, argv, null, NSStringFromClass(AppDelegate))
-        }
-    }
-}
 
 class AppDelegate : UIResponder, UIApplicationDelegateProtocol {
     companion object : UIResponderMeta(), UIApplicationDelegateProtocolMeta {}

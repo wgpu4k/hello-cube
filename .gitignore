@@ -30,3 +30,4 @@ replay_pid*
 *dylib
 /shared/build/
 /android/build/
+*.xcuserstate

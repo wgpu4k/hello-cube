@@ -1,0 +1,31 @@
+name: Hello Cube
+options:
+  bundleIdPrefix: io.jetbrains
+settings:
+  DEVELOPMENT_TEAM: N462MKSJ7M
+  CODE_SIGN_IDENTITY: "Apple Development"
+  CODE_SIGN_STYLE: Automatic
+  MARKETING_VERSION: "1.0"
+  CURRENT_PROJECT_VERSION: "4"
+  SDKROOT: iphoneos
+targets:
+  Hello Cube iOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    prebuildScripts:
+      - script: cd "$SRCROOT" && ../gradlew -p . assembleWgpuAppXCFramework
+        name: GradleCompile
+    info:
+      path: plists/Ios/Info.plist
+      properties:
+        UILaunchStoryboardName: ""
+    sources:
+      - path: "../shared/src/"
+      - path: "src/"
+        excludes:
+          - "jsMain*/**"
+          - "jvmMain*/**"
+          - "wasmJsMain*/**"
+    dependencies:
+      - framework: ./build/XCFrameworks/release/WgpuApp.xcframework
