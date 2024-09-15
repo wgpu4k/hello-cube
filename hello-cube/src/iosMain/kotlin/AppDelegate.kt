@@ -29,14 +29,14 @@ class AppDelegate {
         window = UIWindow(frame = UIScreen.mainScreen.bounds).also { window ->
             UIViewController().also { controller ->
                 MTKView().also { view ->
-                    view.setFrame(window.bounds)
+                    UIScreen.mainScreen.nativeScale
                     controller.view = view
                     window.rootViewController = controller
                         MainScope().launch {
                         configureApplication(
                             view,
                             UIScreen.mainScreen.bounds.useContents {
-                                size.width.toInt() to size.height.toInt()
+                                (size.width * UIScreen.mainScreen.nativeScale).toInt() to (size.height * UIScreen.mainScreen.nativeScale).toInt()
                             }
                         )
                     }
