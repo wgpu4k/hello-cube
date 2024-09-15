@@ -1,9 +1,21 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
 
+import io.ygdrasil.wgpu.AutoClosableContext
+import io.ygdrasil.wgpu.autoClosableContext
+import io.ygdrasil.wgpu.iosContextRenderer
+import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.useContents
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import platform.CoreGraphics.CGSize
+import platform.MetalKit.MTKView
+import platform.MetalKit.MTKViewDelegateProtocol
 import platform.UIKit.UIApplication
 import platform.UIKit.UIScreen
+import platform.UIKit.UIViewController
 import platform.UIKit.UIWindow
+import platform.darwin.NSObject
 
 class AppDelegate {
 
@@ -14,9 +26,64 @@ class AppDelegate {
         didFinishLaunchingWithOptions: Map<Any?, *>?
     ): Boolean {
         println("Hello cube")
-        window = UIWindow(frame = UIScreen.mainScreen.bounds)
+        window = UIWindow(frame = UIScreen.mainScreen.bounds).also { window ->
+            window.rootViewController = UIViewController().also { controller ->
+                MTKView().also { view ->
+                    controller.view = view
+                    MainScope().launch {
+                        configureApplication(
+                            view,
+                            UIScreen.mainScreen.bounds.useContents {
+                                size.width.toInt() to size.height.toInt()
+                            }
+                        )
+                    }
+                }
+            }
+        }
+        window?.makeKeyAndVisible()
         return true
     }
 
+
+}
+
+val globalAutoClosableContext = AutoClosableContext()
+
+suspend fun configureApplication(view: MTKView, size: Pair<Int, Int>) {
+    try {
+        val (width, height) = size
+        val context = iosContextRenderer(
+            view,
+            width, height
+        )
+        val scene = globalAutoClosableContext.createScene(context.wgpuContext)
+        view.delegate = ViewDelegate(scene)
+    } catch (e: Throwable) {
+        e.printStackTrace()
+        throw e
+    }
+
+}
+
+class ViewDelegate(
+    val scene: RotatingCubeScene,
+) : NSObject(), MTKViewDelegateProtocol {
+
+    override fun mtkView(view: MTKView, drawableSizeWillChange: CValue<CGSize>) {}
+
+    override fun drawInMTKView(view: MTKView) {
+        MainScope().launch {
+            try {
+                autoClosableContext {
+                    with(scene) { render() }
+                    scene.frame += 1
+                }
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                throw e
+            }
+        }
+    }
 
 }

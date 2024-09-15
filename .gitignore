@@ -31,3 +31,4 @@ replay_pid*
 /shared/build/
 /android/build/
 *.xcuserstate
+*.xcuserdata
