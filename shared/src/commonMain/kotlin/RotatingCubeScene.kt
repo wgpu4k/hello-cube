@@ -32,7 +32,7 @@ import korlibs.math.geom.Angle
 import korlibs.math.geom.Matrix4
 import kotlin.math.PI
 
-class RotatingCubeScene(private val context: WGPUContext) : AutoCloseable {
+class RotatingCubeScene(val context: WGPUContext) : AutoCloseable {
 
     var frame = 0
     protected val autoClosableContext = AutoClosableContext()

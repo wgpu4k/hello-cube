@@ -27,10 +27,12 @@ class AppDelegate {
     ): Boolean {
         println("Hello cube")
         window = UIWindow(frame = UIScreen.mainScreen.bounds).also { window ->
-            window.rootViewController = UIViewController().also { controller ->
+            UIViewController().also { controller ->
                 MTKView().also { view ->
+                    view.setFrame(window.bounds)
                     controller.view = view
-                    MainScope().launch {
+                    window.rootViewController = controller
+                        MainScope().launch {
                         configureApplication(
                             view,
                             UIScreen.mainScreen.bounds.useContents {
@@ -77,6 +79,7 @@ class ViewDelegate(
             try {
                 autoClosableContext {
                     with(scene) { render() }
+                    scene.context.surface.present()
                     scene.frame += 1
                 }
             } catch (e: Throwable) {
