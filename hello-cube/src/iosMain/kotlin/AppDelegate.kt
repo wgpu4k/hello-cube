@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class)
 
 import io.ygdrasil.wgpu.AutoClosableContext
 import io.ygdrasil.wgpu.autoClosableContext

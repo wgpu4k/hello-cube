@@ -46,14 +46,33 @@ kotlin {
         }
     }
 
+    val hostOs = System.getProperty("os.name")
+    val isArm64 = System.getProperty("os.arch") == "aarch64"
+    val nativeTarget = when {
+        hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
+        hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
+        else -> null // Not supported
+    }
+
+    if (nativeTarget != null) {
+        with(nativeTarget) {
+
+            binaries {
+                executable {
+                    entryPoint = "main"
+                }
+            }
+        }
+    }
+
+
     sourceSets {
 
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(projects.shared)
             }
         }
-
     }
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -95,7 +114,8 @@ object Platform {
 
 }
 
-tasks.register<JavaExec>("runApp") {
+tasks.register<JavaExec>("runJvm") {
+    group = "run"
     mainClass = "MainKt"
     if (Platform.os == Os.MacOs) {
         jvmArgs(
