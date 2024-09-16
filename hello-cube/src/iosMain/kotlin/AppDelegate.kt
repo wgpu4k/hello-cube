@@ -8,6 +8,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import platform.CoreGraphics.CGSize
 import platform.MetalKit.MTKView
 import platform.MetalKit.MTKViewDelegateProtocol
@@ -32,7 +33,7 @@ class AppDelegate {
                     UIScreen.mainScreen.nativeScale
                     controller.view = view
                     window.rootViewController = controller
-                        MainScope().launch {
+                    MainScope().launch {
                         configureApplication(
                             view,
                             UIScreen.mainScreen.bounds.useContents {
@@ -72,19 +73,17 @@ class ViewDelegate(
     val scene: RotatingCubeScene,
 ) : NSObject(), MTKViewDelegateProtocol {
 
-    override fun mtkView(view: MTKView, drawableSizeWillChange: CValue<CGSize>) {}
+    override fun mtkView(view: MTKView, drawableSizeWillChange: CValue<CGSize>) {
+        println("mtkView")
+    }
 
     override fun drawInMTKView(view: MTKView) {
-        MainScope().launch {
-            try {
-                autoClosableContext {
-                    with(scene) { render() }
-                    scene.context.surface.present()
-                    scene.frame += 1
-                }
-            } catch (e: Throwable) {
-                e.printStackTrace()
-                throw e
+        println("Drawing ${scene.frame}")
+        runBlocking {
+            autoClosableContext {
+                with(scene) { render() }
+                scene.context.surface.present()
+                scene.frame += 1
             }
         }
     }
