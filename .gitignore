@@ -32,3 +32,4 @@ replay_pid*
 /android/build/
 *.xcuserstate
 /**/*.xcuserdatad/**
+/local.properties

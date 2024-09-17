@@ -8,7 +8,8 @@ Minimal project to show how to use wgpu4k
 2. On web js: `./gradlew jsRun`
 3. On web wasm: `./gradlew wasmJsRun`
 4. On native MacOs: `./gradlew runReleaseExecutableOsx`
+5. On Android, use 
 
 ## Screenshot
 ![Rotating cube](https://github.com/wgpu4k/hello-cube/blob/main/catpure.gif?raw=true)
-![mobile-capture.mov](https://github.com/ygdrasil-io/wgpu4k-hello-cube/raw/feature/upgrade-to-preview3/mobile-capture.gif)
+![Rotating cube on mobile](https://github.com/ygdrasil-io/wgpu4k-hello-cube/raw/feature/upgrade-to-preview3/mobile-capture.gif)
