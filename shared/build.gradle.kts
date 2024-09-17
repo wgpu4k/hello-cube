@@ -42,11 +42,6 @@ kotlin {
 				api(libs.coroutines)
 			}
 		}
-
-		androidMain {
-			//implementation("io.ygdrasil:wgpu4k-toolkit:")
-		}
-
 	}
 
 	@OptIn(ExperimentalKotlinGradlePluginApi::class)

@@ -6,8 +6,8 @@ Minimal project to show how to use wgpu4k
 
 1. On desktop: `./gradlew runJvm`
 2. On web js: `./gradlew jsRun`
-2. On web wasm: `./gradlew wasmJsRun`
-2. On web native MacOs: `./gradlew runReleaseExecutableOsx`
+3. On web wasm: `./gradlew wasmJsRun`
+4. On native MacOs: `./gradlew runReleaseExecutableOsx`
 
 ## Screenshot
 ![Rotating cube](https://github.com/wgpu4k/hello-cube/blob/main/catpure.gif?raw=true)
