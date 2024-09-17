@@ -11,4 +11,4 @@ Minimal project to show how to use wgpu4k
 
 ## Screenshot
 ![Rotating cube](https://github.com/wgpu4k/hello-cube/blob/main/catpure.gif?raw=true)
-![mobile-capture.mov](./mobile-capture.mov)
+![mobile-capture.mov](https://github.com/ygdrasil-io/wgpu4k-hello-cube/raw/feature/upgrade-to-preview3/mobile-capture.gif)
