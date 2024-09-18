@@ -23,3 +23,11 @@
 hs_err_pid*
 replay_pid*
 /.idea/
+/.kotlin/
+/.gradle/
+/hello-cube/build/
+*dylib
+/**/build/
+*.xcuserstate
+/**/*.xcuserdatad/**
+/local.properties

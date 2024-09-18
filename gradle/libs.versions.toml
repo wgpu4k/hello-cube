@@ -1,14 +1,18 @@
 [versions]
-kotlin = "2.0.0"
-wgpu4k = "preview-2"
-korge = "5.4.0"
-coroutines = "1.8.0"
+activityCompose = "1.9.2"
+kotlin = "2.0.20"
+wgpu4k = "preview-3"
+korge = "6.0.0"
+coroutines = "1.9.0"
+agp = "8.5.2"
 
 [libraries]
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 wgpu4k = { module = "io.ygdrasil:wgpu4k-toolkit", version.ref = "wgpu4k" }
-korge-foundation = { module = "com.soywiz.korge:korge-foundation", version.ref = "korge" }
+korge-foundation = { module = "com.soywiz:korlibs-math", version.ref = "korge" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
