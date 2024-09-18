@@ -6,10 +6,8 @@ import io.ygdrasil.wgpu.iosContextRenderer
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import platform.CoreGraphics.CGSize
-import platform.Foundation.NSThread
 import platform.MetalKit.MTKView
 import platform.MetalKit.MTKViewDelegateProtocol
 import platform.UIKit.UIApplication

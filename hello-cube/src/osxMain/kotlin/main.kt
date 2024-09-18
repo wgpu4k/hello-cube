@@ -1,9 +1,12 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-import io.ygdrasil.wgpu.*
+import glfw.glfwPollEvents
+import glfw.glfwShowWindow
+import glfw.glfwWindowShouldClose
+import io.ygdrasil.wgpu.autoClosableContext
+import io.ygdrasil.wgpu.glfwContextRenderer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.runBlocking
-import glfw.*
 
 fun main() {
     runBlocking {
