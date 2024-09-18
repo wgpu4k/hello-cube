@@ -22,10 +22,6 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
 
     init {
         holder.addCallback(this)
-        // The only way to set SurfaceView background color to transparent:
-        // https://groups.google.com/g/android-developers/c/jYjvm7ItpXQ?pli=1
-        //this.setZOrderOnTop(true)
-        //holder.setFormat(PixelFormat.TRANSPARENT)
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
@@ -34,11 +30,9 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
         MainScope().launch {
             if (scene != null) return@launch
             try {
-                with(context!!) {
-                    androidContext = androidContextRenderer(surfaceHolder, width, height)
-                    scene = autoClosableContext.createScene(androidContext!!.wgpuContext)
-                    setWillNotDraw(false)
-                }
+                androidContext = androidContextRenderer(surfaceHolder, width, height)
+                scene = autoClosableContext.createScene(androidContext!!.wgpuContext)
+                setWillNotDraw(false)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -46,10 +40,7 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
 
     }
 
-    override fun surfaceDestroyed(holder: SurfaceHolder) {
-        println("surfaceDestroyed")
-
-    }
+    override fun surfaceDestroyed(holder: SurfaceHolder) { }
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
@@ -57,7 +48,7 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
         MainScope().launch {
             try {
                 autoClosableContext {
-                    scene?.let {scene ->
+                    scene?.let { scene ->
                         with(scene) { render() }
                         scene.frame += 1
                     }
@@ -72,11 +63,6 @@ class WGPUSurfaceView : SurfaceView, SurfaceHolder.Callback2 {
         }
     }
 
-    fun changeExample(index: Int) {
-        println("changeExample with index $index")
-        // TODO
-    }
-
-    override fun surfaceRedrawNeeded(holder: SurfaceHolder) { }
+    override fun surfaceRedrawNeeded(holder: SurfaceHolder) {}
 
 }
