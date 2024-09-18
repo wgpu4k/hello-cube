@@ -11,5 +11,5 @@ Minimal project to show how to use wgpu4k
 5. On Android, run the subproject `android` with android studio ![android-studio-capture.png](android-studio-capture.png)
 
 ## Screenshot
-![Rotating cube](https://github.com/wgpu4k/hello-cube/blob/main/catpure.gif?raw=true)
+![Rotating cube](desktop-catpure.gif)
 ![Rotating cube on mobile](mobile-capture.gif)
