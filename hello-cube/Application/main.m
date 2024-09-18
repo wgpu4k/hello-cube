@@ -1,10 +1,3 @@
-/*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Application entry point for all platforms
-*/
-
 #import <UIKit/UIKit.h>
 #import <TargetConditionals.h>
 #import <Availability.h>
