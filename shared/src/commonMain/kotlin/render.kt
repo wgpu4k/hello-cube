@@ -15,7 +15,7 @@ fun AutoClosableContext.createScene(context: WGPUContext): RotatingCubeScene {
             CanvasConfiguration(
                 device = context.device,
                 format = context.renderingContext.textureFormat,
-                usage = setOf(TextureUsage.renderattachment, TextureUsage.copysrc),
+                usage = setOf(TextureUsage.renderattachment),
                 alphaMode = alphaMode
             )
         )
