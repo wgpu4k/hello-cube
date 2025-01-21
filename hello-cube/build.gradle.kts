@@ -50,8 +50,8 @@ kotlin {
 
     when(Platform.os) {
          Os.MacOs -> when(Platform.architecture) {
-             Architecture.X86_64 -> macosArm64("osx")
-             Architecture.AARCH64 -> macosX64("osx")
+             Architecture.X86_64 -> macosX64("osx")
+             Architecture.AARCH64 -> macosArm64("osx")
          }
         else -> null // Not supported
     }?.let { nativeTarget ->
