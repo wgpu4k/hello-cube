@@ -93,6 +93,7 @@ class RotatingCubeScene(val context: WGPUContext) : AutoCloseable {
         renderPipeline = device.createRenderPipeline(
             RenderPipelineDescriptor(
                 vertex = VertexState(
+                    entryPoint = "main",
                     module = device.createShaderModule(
                         ShaderModuleDescriptor(
                             code = basicVertexShader
@@ -117,6 +118,7 @@ class RotatingCubeScene(val context: WGPUContext) : AutoCloseable {
                     )
                 ),
                 fragment = FragmentState(
+                    entryPoint = "main",
                     module = device.createShaderModule(
                         ShaderModuleDescriptor(
                             code = vertexPositionColorShader
