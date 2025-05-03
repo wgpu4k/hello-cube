@@ -25,6 +25,10 @@ plugins {
 	id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
 }
 
+val useAndroid: String by settings
+
 include("shared")
 include("hello-cube")
-include("android")
+if (useAndroid()) include("android")
+
+fun useAndroid() = useAndroid.equals("true", ignoreCase = true)
