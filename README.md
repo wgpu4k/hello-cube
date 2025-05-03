@@ -4,8 +4,7 @@ Minimal project to show how to use wgpu4k
 
 ## Prerequisites
 
-- Gradle 8.9
-- JDK 22+
+- JDK 22-24
 - A recent version of Chrome or Firefox Nightly for web browser execution. Check compatibility [here][chart].
 
 ## How to Run the Project
