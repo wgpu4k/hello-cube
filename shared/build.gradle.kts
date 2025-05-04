@@ -3,8 +3,9 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+
 plugins {
-	alias(libs.plugins.kotlin.multiplatform)
+	id(libs.plugins.kotlin.multiplatform.get().pluginId)
 }
 
 if (useAndroid) {

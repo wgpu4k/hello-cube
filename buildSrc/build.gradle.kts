@@ -12,5 +12,6 @@ fun PluginDependency.asLibrary(): Any = "$pluginId:$pluginId.gradle.plugin:$vers
 fun Provider<PluginDependency>.asLibrary(): Provider<Any> = map { it.asLibrary() }
 
 dependencies {
+    implementation(libs.plugins.kotlin.multiplatform.asLibrary())
     implementation(libs.plugins.android.library.asLibrary())
 }

@@ -31,3 +31,4 @@ replay_pid*
 *.xcuserstate
 /**/*.xcuserdatad/**
 /local.properties
+/buildSrc/.gradle/
