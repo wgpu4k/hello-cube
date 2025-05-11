@@ -127,6 +127,10 @@ tasks.register<JavaExec>("runJvm") {
         )
     }
     classpath = sourceSets["main"].runtimeClasspath
+
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
 }
 
 java {
